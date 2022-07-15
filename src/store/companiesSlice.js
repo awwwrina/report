@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {companies} from '../data.js';
 
 const initialState = {
@@ -6,25 +6,6 @@ const initialState = {
     captions: ["Company Name","City","State","Phone","Fax"],
     currentCaption: null
 }
-
-export const fetchCards = createAsyncThunk(
-    'cards/fetchCards',
-    async (offset = 0, {rejectWithValue}) => {
-        try {
-            const response = await fetch(`${URL}/api/cards/cards?limit=${offset+9}&offset=${offset}`);
-
-            if(!response.ok) {
-                throw new Error(await response.text())
-            }
-            const data = await response.json();
-
-            return data;
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
-        
-    }
-)
 
 const companiesSlice = createSlice({
     name: 'companies',
@@ -71,31 +52,9 @@ const companiesSlice = createSlice({
             state.captions.push(action.payload);
         }
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchCards.fulfilled, (state, action) => {
-                state.cards = [...state.cards, ...action.payload];
-                if (action.payload.length < 9) {
-                    state.showBtn = false;
-                }
-                state.offset += 9;
-            })
-            .addDefaultCase(() => {})
-    }
+
 });
 
-export const filteredCardsSelector = createSelector(
-    state => state.filters.activeFilter,
-    state => state.cards.cards,
-    (filter, cards) => {
-        if (filter === 'Show All') {
-            return cards;
-        } else {
-            return cards.filter(item => item.label === filter);
-        }
-    }
-
-)
 
 const {actions, reducer} = companiesSlice;
 

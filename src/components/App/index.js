@@ -34,12 +34,12 @@ const App = () =>  {
   return (
     <>
       <div className="grid">
-        <h1 className="header">Окно предварительного просмотра отчёта</h1>
+        <h1 id="header">Окно предварительного просмотра отчёта</h1>
         {captions.length === 0 && <div className='no-data'> No data. You deleted all columns.</div>}
         {captions.length !== 0 && <DataGridComponent/>}
       </div>
       <aside className='aside'>
-        <h2 className='header'>Список колонок </h2>
+        <h2 id='header'>Список колонок </h2>
         <ul className="items">
           {captions.map(item => {
             return( 

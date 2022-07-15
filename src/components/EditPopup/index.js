@@ -1,43 +1,43 @@
-import { Button, Popup, Form, TextBox } from 'devextreme-react';
-import {
-    SimpleItem,
-    RequiredRule,
-    PatternRule
-} from 'devextreme-react/form';
-
+import { Button, Popup, TextBox } from 'devextreme-react';
 
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { useDispatch } from 'react-redux/es/exports';
 
 import { captionChanged } from '../../store/companiesSlice';
 export const EditPopup = ({isPopupVisible, togglePopup, item}) => {
 
-    let value = useSelector(state => state.companies.currentCaption)
+    const [caption, setCaption] = useState(null)
+
     const dispatch = useDispatch();
+    const handleSubmit = () => {
+        dispatch(captionChanged(caption));
+        togglePopup();
+    }
+
+    const handleChanges = (e) => {
+        setCaption(e);
+    }
     
     return(
         <Popup id="popup"
-        style={{'background':'blue'}}
-        width={300}
+        width={350}
         height={200}
         visible={isPopupVisible}
         hideOnOutsideClick={true}
         onHiding={togglePopup}
-        title='Change caption'
-
-        >
-
-            <TextBox defaultValue=''
+        title='Изменить колонку'>
+            <TextBox defaultValue=" "
                 showClearButton={true}
-                placeholder="Enter new caption"
+                placeholder="Введите название"
                 valueChangeEvent="keyup"
-                onValueChange={(e) => dispatch(captionChanged(e))} />
+                onValueChange={(e) => handleChanges(e)}/>
             <Button
                 style={{"marginTop":"20px"}}
-                text="Change caption and close modal"
-                onClick={togglePopup}
+                text="Переименовать колонку и закрыть окно"
+                onClick={handleSubmit}
                 width="100%"
                 marginTop="10"/>
+
         </Popup>
     )
 }

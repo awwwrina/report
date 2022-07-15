@@ -1,15 +1,23 @@
 import { Button, Popup, TextBox } from 'devextreme-react';
 
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { useDispatch } from 'react-redux/es/exports';
 
 import { newColumnAdded } from '../../store/companiesSlice';
 export const AddColumnPopup = ({isAddPopupVisible, togglePopupAdding}) => {
 
-    let value = useSelector(state => state.companies.currentCaption)
     const dispatch = useDispatch();
-    console.log(isAddPopupVisible);
     
+    const [caption, setCaption] = useState(null)
+
+    const handleSubmit = () => {
+        dispatch(newColumnAdded(caption));
+        togglePopupAdding();
+    }
+
+    const handleChanges = (e) => {
+        setCaption(e);
+    }
 
     return(
         <Popup id="popup"
@@ -24,13 +32,13 @@ export const AddColumnPopup = ({isAddPopupVisible, togglePopupAdding}) => {
                 showClearButton={true}
                 placeholder="Введите название"
                 valueChangeEvent="keyup"
-                onValueChange={(e) => dispatch(newColumnAdded(e))} />
-            {/* <Button
+                onValueChange={(e) =>  handleChanges(e)} />
+            <Button
                 style={{"marginTop":"20px"}}
                 text="Создать колонку и закрыть окно"
-                onClick={togglePopupAdding}
+                onClick={handleSubmit}
                 width="100%"
-                marginTop="10"/> */}
+                marginTop="10"/>
         </Popup>
     )
 }

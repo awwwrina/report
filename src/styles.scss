@@ -15,9 +15,8 @@
     outline: #fff solid 10px;
     margin: 28px 10px;
 }
-.header {
+#header {
     font-size: 16px;
-    font-weight: 400;
     font-family: 'Inter', sans-serif;
 }
 .grid {
@@ -33,7 +32,7 @@
     }
     .item {
         display: grid;
-        grid-template-columns: minmax(auto, 110px) repeat(2, 22px) ;
+        grid-template-columns: minmax(auto, 150px) repeat(2, 22px);
     }
     
 }
