@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+
+* {
+    box-sizing: border-box;
+}
+
+#app {
+    padding: 31px 20px 83px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 14px;
+}
+#gridContainer {
+    outline: #fff solid 10px;
+    margin: 28px 10px;
+}
+.header {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+}
+.grid {
+    background-color: #C4C4C4;
+    padding: 13px 15px; 
+    
+}
+.aside {
+    background-color: #C4C4C4;
+    padding: 8px 24px;
+    .items {
+        padding-left: 14px;
+    }
+    .item {
+        display: grid;
+        grid-template-columns: minmax(auto, 110px) repeat(2, 22px) ;
+    }
+    
+}
+
+#icon .dx-button-content {
+    padding: 0;
+}
+.no-data {
+    text-align: center;
+    font-size: 16px;
+}
